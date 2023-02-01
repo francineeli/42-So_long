@@ -1,34 +1,36 @@
-NAME = so_long
 
-FLAGS = cc -Wall -Werror -Wextra
 
-X_FLAGS = -lX11 -lXext -lmlx
+NAME		=	so_long
 
-MAKE_LIBFT = libft.a
+GNL_PATH	=	GNL/
 
-SRC = so_long.c images_controls.c \
-		map_controls.c game_events.c \
+GNL_FILES	=	get_next_line_utils.c get_next_line.c ft_itoa.c
+GNL_OBJS	=	$(addprefix $(GNL_PATH), $(GNL_FILES:.c=.o))
+
+FILES		=	so_long.c game_rules.c map_rules.c map_rules_utils.c images_rules.c images_rules_utils.c
+OBJS		=	$(FILES:.c=.o)
+
+CFLAGS		=	-Wall -Werror -Wextra -g3
+
+MLX_FLAGS	=	-lmlx -lX11 -Imlx -lXext
+
+%.o: %.c 
+	cc $(CFLAGS) -c $<  -o $@
 	
-
-OBJ = $(SRC:.c=.o)
-
 all: $(NAME)
 
-$(NAME): $(OBJ) $(MAKE_LIBFT)
-		 $(FLAGS) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib  -Imlx_linux libft/$(MAKE_LIBFT) $(X_FLAGS) -L ./ -o $(NAME)
+$(NAME): $(GNL_OBJS) $(OBJS)
+	cc $(CFLAGS) $^ $(MLX_FLAGS) -o $@
 
-%.o: %.c
-		$(FLAGS) -I/usr/include -c $< -o $@
-	
-$(MAKE_LIBFT):
-		make -C libft/
+clean: 
+	rm -f $(GNL_OBJS) $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
 
 re: fclean all
 
-fclean: clean
-		rm -rf $(NAME)
-
-clean:
-		rm -rf *.o
-
 .PHONY: all clean fclean re
+
+val:
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=teste -s ./so_long maps/map43.ber

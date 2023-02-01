@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   game_rules.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feli-bar <feli-bar@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:32:01 by feli-bar          #+#    #+#             */
-/*   Updated: 2023/01/31 18:32:10 by feli-bar         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:46:18 by feli-bar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_init_game(t_mlx *window)
 		return (1);
 	}
 	window->win_ptr = mlx_new_window(window->mlx_ptr, window->col * \
-		PIXEL_SIZE, window->line * PIXEL_SIZE, "Yoyo, So_long");
+		PIXEL_SIZE, window->line * PIXEL_SIZE, "Tito is hungry!");
 	if (window->win_ptr == NULL)
 	{
 		ft_print_error(ERROR_12"\n");
@@ -30,7 +30,7 @@ int	ft_init_game(t_mlx *window)
 	window->movements = 0;
 	ft_put_sprites(window);
 	window->player = window->player_down;
-	mlx_hook(window->win_ptr, 2, (1L << 0), &ft_event, window);
+	mlx_hook(window->win_ptr, 2, (1L << 0), &ft_key_input, window);
 	mlx_hook(window->win_ptr, 17, 0, &ft_close, window);
 	mlx_loop_hook(window->mlx_ptr, &ft_show_map, window);
 	mlx_loop(window->mlx_ptr);
@@ -39,15 +39,15 @@ int	ft_init_game(t_mlx *window)
 
 void	ft_put_sprites(t_mlx *window)
 {
-	ft_sprites(window, &window->player_left, "textures/player.xpm");
-	ft_sprites(window, &window->player_right, "textures/player.xpm");
-	ft_sprites(window, &window->player_up, "textures/player.xpm");
-	ft_sprites(window, &window->player_down, "textures/player.xpm");
-	ft_sprites(window, &window->wall, "textures/wall.xpm");
-	ft_sprites(window, &window->collec, "textures/collect.xpm");
-	ft_sprites(window, &window->exit_c, "textures/door_close.xpm");
-	ft_sprites(window, &window->exit_o, "textures/door_open.xpm");
-	ft_sprites(window, &window->floor, "textures/background.xpm");
+	ft_sprites(window, &window->player_down, "images/player_01.xpm");
+	ft_sprites(window, &window->player_right, "images/player_02.xpm");
+	ft_sprites(window, &window->player_left, "images/player_03.xpm");
+	ft_sprites(window, &window->player_up, "images/player_04.xpm");
+	ft_sprites(window, &window->wall, "images/wall.xpm");
+	ft_sprites(window, &window->collec, "images/collectable.xpm");
+	ft_sprites(window, &window->floor, "images/floor.xpm");
+	ft_sprites(window, &window->exit_c, "images/door_close.xpm");
+	ft_sprites(window, &window->exit_o, "images/door_open.xpm");
 }
 
 void	ft_sprites(t_mlx *window, void **image, char *path)

@@ -6,7 +6,7 @@
 /*   By: feli-bar <feli-bar@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:32:01 by feli-bar          #+#    #+#             */
-/*   Updated: 2023/01/31 18:32:10 by feli-bar         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:47:09 by feli-bar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,6 @@ int	main(int argc, char **argv)
 	if (ft_check_errors(&window, argv[1]) == 1)
 		return (1);
 	return (ft_init_game(&window));
-}
-
-void	ft_print_error(char *error)
-{
-	write (1, error, ft_strlen(error));
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (s1[i] != '\0' && s1[i] == s2[i] && i < n -1)
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
 void	ft_struct_init(t_mlx *window)
@@ -99,4 +82,21 @@ int	ft_check_errors(t_mlx *window, char *path)
 	if (has_error != 0)
 		return (1);
 	return (0);
+}
+
+void	ft_print_error(char *error)
+{
+	write (1, error, ft_strlen(error));
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s1[i] != '\0' && s1[i] == s2[i] && i < n -1)
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

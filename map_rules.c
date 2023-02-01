@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   map_rules.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feli-bar <feli-bar@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:32:01 by feli-bar          #+#    #+#             */
-/*   Updated: 2023/01/31 18:32:10 by feli-bar         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:20:07 by feli-bar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "headers/so_long.h"
-
-void	ft_put_image_to_window(t_mlx *window, void *image, int x, int y)
-{
-	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, \
-		image, PIXEL_SIZE * x, PIXEL_SIZE * y);
-}
 
 int	ft_create_map(t_mlx *window, char *path)
 {
@@ -47,6 +41,12 @@ int	ft_create_map(t_mlx *window, char *path)
 	return (0);
 }
 
+void	ft_put_image_to_window(t_mlx *window, void *image, int x, int y)
+{
+	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, \
+		image, PIXEL_SIZE * x, PIXEL_SIZE * y);
+}
+
 char	**ft_dup_map(t_mlx *window)
 {
 	char	**copy;
@@ -67,19 +67,6 @@ char	**ft_dup_map(t_mlx *window)
 	}
 	copy[y] = NULL;
 	return (copy);
-}
-
-void	ft_free_matrix(char **matrix)
-{
-	int		i;
-
-	i = 0;
-	while (matrix[i] != NULL)
-	{
-		free (matrix[i]);
-		i++;
-	}
-	free(matrix);
 }
 
 int	ft_read_map(t_mlx *window, char *path)
@@ -109,4 +96,17 @@ int	ft_read_map(t_mlx *window, char *path)
 		return (1);
 	}
 	return (0);
+}
+
+void	ft_free_matrix(char **matrix)
+{
+	int		i;
+
+	i = 0;
+	while (matrix[i] != NULL)
+	{
+		free (matrix[i]);
+		i++;
+	}
+	free(matrix);
 }
